@@ -115,6 +115,68 @@ function gameObject() {
     };
 }
 
+// REFACTORED CODE
+function homeTeam() {
+    return gameObject()['home'];
+}
+function awayTeam() {
+    return gameObject()['away'];
+}
+function players() {
+    return { ...homeTeam()['players'], ...awayTeam()['players'] };
+}
+function numPointsScored(playerName) {
+    return players()[playerName].points;
+}
+function shoeSize(playerName) {
+    return players()[playerName].shoe;
+}
+function teams() {
+    return Object.values(gameObject());
+}
+function teamColors(teamName) {
+    return teams().find((item) => item.teamName === teamName).colors;
+}
+function teamNames() {
+    // teams().forEach((item) => console.log(item.teamName));
+    return teams().map((item) => item.teamName);
+}
+function playerNumbers() {
+    return Object.entries(players()).map((item) => item[1].number);
+}
+function playerStats(playerName) {
+    return players()[playerName];
+}
+function bigShoeRebounds() {
+    return Object.entries(players()).filter(
+        (item) =>
+            item[1].shoe ===
+            Math.max(...Object.entries(players()).map((item) => item[1].shoe))
+    )[0][1].rebounds;
+}
+function mostPointsScored() {
+    return Object.entries(players()).filter(
+        (item) =>
+            item[1].points ===
+            Math.max(...Object.entries(players()).map((item) => item[1].points))
+    )[0][0];
+}
+function playerWithLongestName() {
+    return Object.keys(players())
+        .filter(
+            (item) =>
+                item.length ===
+                Math.max(...Object.keys(players()).map((item) => item.length))
+        )
+        .join('');
+}
+function doesLongNameStealATon() {
+    return (
+        players()[playerWithLongestName()].steals ===
+        Math.max(...Object.entries(players()).map((item) => item[1].steals))
+    );
+}
+/* ORIGINAL CODE
 function numPointsScored(playerName) {
     const game = gameObject();
     for (let teams in game) {
@@ -136,7 +198,6 @@ function numPointsScored(playerName) {
         }
     }
 }
-
 function shoeSize(playerName) {
     const game = gameObject();
     for (let teams in game) {
@@ -158,7 +219,6 @@ function shoeSize(playerName) {
         }
     }
 }
-
 function teamColors(teamName) {
     const game = gameObject();
     for (let teams in game) {
@@ -170,7 +230,6 @@ function teamColors(teamName) {
         }
     }
 }
-
 function teamNames() {
     const game = gameObject();
     const teamNames = [];
@@ -179,7 +238,6 @@ function teamNames() {
     }
     return teamNames;
 }
-
 function playerNumbers(teamName) {
     const game = gameObject();
     for (let teams in game) {
@@ -197,7 +255,6 @@ function playerNumbers(teamName) {
         }
     }
 }
-
 function playerStats(playerName) {
     const game = gameObject();
     for (let teams in game) {
@@ -215,7 +272,6 @@ function playerStats(playerName) {
         }
     }
 }
-
 function bigShoeRebounds() {
     const game = gameObject();
     const shoeSizes = [];
@@ -244,7 +300,6 @@ function bigShoeRebounds() {
     const bigShoePlayerRebounds = bigShoePlayersRebounds[index];
     return bigShoePlayerRebounds;
 }
-
 function mostPointsScored() {
     const game = gameObject();
     const mostPoints = [];
@@ -271,7 +326,6 @@ function mostPointsScored() {
     const mostPointsPlayer = mostPointsPlayers[index];
     return mostPointsPlayer;
 }
-
 function winningTeam() {
     const game = gameObject();
     const pointTotals = [];
@@ -310,7 +364,6 @@ function winningTeam() {
     const winner = opponents[index];
     return winner;
 }
-
 function playerWithLongestName() {
     const game = gameObject();
     const charsInNames = [];
@@ -332,7 +385,6 @@ function playerWithLongestName() {
     const playerWithLongestName = names[index];
     return playerWithLongestName;
 }
-
 function doesLongNameStealATon() {
     const game = gameObject();
     const names = [];
@@ -359,3 +411,4 @@ function doesLongNameStealATon() {
     const doesLongNameStealATon = names[index];
     return doesLongNameStealATon === playerWithLongestName() ? true : false;
 }
+*/
